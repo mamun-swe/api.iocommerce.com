@@ -1,7 +1,5 @@
 const Banner = require("../../../Models/Banner")
 const { Host } = require("../../Helpers/Index")
-const { RedisClient } = require("../../Cache/Index")
-
 
 // List of banners
 const Index = async (req, res, next) => {
@@ -17,9 +15,6 @@ const Index = async (req, res, next) => {
                 image: Host(req) + "uploads/banner/" + banner.image
             }
         })
-
-        // set data to cache
-        RedisClient.setex("banners", 3600, JSON.stringify(results))
 
         res.status(200).json({
             status: true,

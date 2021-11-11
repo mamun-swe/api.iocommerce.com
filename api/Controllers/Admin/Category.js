@@ -56,11 +56,11 @@ const Store = async (req, res, next) => {
         })
 
         await newCategory.save()
+
         res.status(201).json({
             status: true,
             message: 'Successfully category cretaed'
         })
-
     } catch (error) {
         if (error) next(error)
     }
@@ -159,7 +159,6 @@ const Update = async (req, res, next) => {
             status: false,
             message: 'Successfully category updated'
         })
-
     } catch (error) {
         if (error) next(error)
     }

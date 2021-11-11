@@ -272,7 +272,6 @@ const Update = async (req, res, next) => {
             status: true,
             message: 'Successfully product updated.'
         })
-
     } catch (error) {
         if (error) next(error)
     }
@@ -327,7 +326,6 @@ const UpdateSMImage = async (req, res, next) => {
                 message: 'Successfully thumbnail updated.'
             })
         }
-
     } catch (error) {
         if (error) next(error)
     }
@@ -364,7 +362,6 @@ const AddAdditionalImage = async (req, res, next) => {
             status: true,
             message: 'Successfully image uploaded.'
         })
-
     } catch (error) {
         if (error) next(error)
     }

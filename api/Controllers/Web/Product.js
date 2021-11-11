@@ -1,5 +1,4 @@
 const Product = require("../../../Models/Product")
-const { RedisClient } = require("../../Cache/Index")
 const { Host } = require("../../Helpers/Index")
 
 // Show specific product
@@ -29,9 +28,6 @@ const Show = async (req, res, next) => {
                 }
             }
             result.images.additional = additional
-
-            // set data to cache
-            RedisClient.setex(slug, 600, JSON.stringify(result))
         }
 
         res.status(200).json({

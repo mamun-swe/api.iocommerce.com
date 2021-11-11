@@ -1,7 +1,6 @@
 const Product = require("../../../Models/Product")
 const Category = require("../../../Models/Category")
 const { Host } = require("../../Helpers/Index")
-const { RedisClient } = require("../../Cache/Index")
 
 
 // List of categories with product
@@ -11,9 +10,6 @@ const Index = async (req, res, next) => {
         const results = await Category.find({}, { name: 1, slug: 1 })
             .sort({ name: 1 })
             .exec()
-
-        // set data to cache
-        RedisClient.setex("categoryList", 3600, JSON.stringify(results))
 
         res.status(200).json({
             status: true,
@@ -35,9 +31,6 @@ const Show = async (req, res, next) => {
             .exec()
 
         if (result) result.image = result.image ? Host(req) + "uploads/category/" + result.image : null
-
-        // set data to cache
-        RedisClient.setex(slug, 3600, JSON.stringify(result))
 
         res.status(200).json({
             status: true,
@@ -100,9 +93,6 @@ const ListOfCategory = async (req, res, next) => {
         const results = await Category.find({}, { slug: 1, name: 1 })
             .sort({ name: 1 })
             .exec()
-
-        // set data to cache
-        RedisClient.setex("categoryList", 3600, JSON.stringify(results))
 
         res.status(200).json({
             status: true,

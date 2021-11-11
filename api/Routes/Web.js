@@ -1,6 +1,5 @@
 const express = require('express')
 const webRouter = express.Router()
-const Cache = require("../Cache/Index")
 
 const HomeController = require("../Controllers/Web/Home")
 const BannerController = require("../Controllers/Web/Banner")
@@ -12,16 +11,16 @@ const SearchController = require("../Controllers/Web/Search")
 webRouter.get("/home-products", HomeController.Index)
 
 // ------ Banner -------
-webRouter.get("/banner", Cache.Banners, BannerController.Index)
+webRouter.get("/banner", BannerController.Index)
 
 // ------ Category -------
-webRouter.get("/category", Cache.CategoryList, CategoryController.Index)
-webRouter.get("/category/:slug", Cache.Category, CategoryController.Show)
+webRouter.get("/category", CategoryController.Index)
+webRouter.get("/category/:slug", CategoryController.Show)
 webRouter.get("/category/products/:category", CategoryController.Products)
-webRouter.get("/category/name/slug/list", Cache.CategoryList, CategoryController.ListOfCategory)
+webRouter.get("/category/name/slug/list", CategoryController.ListOfCategory)
 
 // ------ Product -------
-webRouter.get("/product/:slug", Cache.Product, ProductController.Show)
+webRouter.get("/product/:slug", ProductController.Show)
 
 // ------ Search -------
 webRouter.get("/search/suggestion/:query", SearchController.Suggestion)

@@ -104,7 +104,6 @@ const Delete = async (req, res, next) => {
             status: true,
             message: 'Successfully banner deleted'
         })
-
     } catch (error) {
         if (error) next(error)
     }
