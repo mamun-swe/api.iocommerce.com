@@ -14,7 +14,17 @@ const Show = async (req, res, next) => {
                 createdAt: 0,
                 updatedAt: 0
             }
-        ).exec()
+        )
+            .populate({
+                path: "reviews",
+                select: "_id rating review customer",
+                options: { sort: { _id: -1 } },
+                populate: {
+                    path: 'customer',
+                    select: { _id: 0, name: 1 }
+                }
+            })
+            .exec()
 
         if (result) {
             result.images.small = Host(req) + "uploads/product/small/" + result.images.small
