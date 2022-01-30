@@ -1,5 +1,6 @@
 const Order = require("../../../Models/Order")
 const Product = require("../../../Models/Product")
+const Customer = require("../../../Models/Customer")
 const Validator = require("../../Validator/Order")
 const CheckId = require("../../Middleware/CheckId")
 const { UniqueCode, CopyFile, Host } = require("../../Helpers/Index")
@@ -165,6 +166,12 @@ const Place = async (req, res, next) => {
                 message: "Network error!"
             })
         }
+
+        // address update
+        await Customer.findByIdAndUpdate(
+            id,
+            { $push: { deliveryAddress: deliveryAddress } }
+        )
 
         res.status(201).json({
             status: true,

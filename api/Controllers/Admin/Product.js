@@ -454,6 +454,43 @@ const Search = async (req, res, next) => {
     }
 }
 
+// Delete specific item
+const Destroy = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        await CheckId(id)
+
+        const is_available = await Product.findById(id)
+        if (!is_available) {
+            return res.status(404).json({
+                status: false,
+                message: "Product not available."
+            })
+        }
+
+        // Delete old file
+        await DeleteFile('./uploads/product/small/', is_available.images.small)
+        await DeleteFile('./uploads/product/large/', is_available.images.large)
+
+        // Remove old file from directory 
+
+        if (is_available.images.additional) {
+            for (let i = 0; i < is_available.images.additional.length; i++) {
+                const element = is_available.images.additional[i];
+                await DeleteFile('./uploads/product/additional/', element)
+            }
+        }
+
+        await Product.findByIdAndDelete(id)
+
+        res.status(200).json({
+            status: true,
+            message: "Successfully deleted."
+        })
+    } catch (error) {
+        if (error) next(error)
+    }
+}
 
 
 module.exports = {
@@ -464,5 +501,6 @@ module.exports = {
     UpdateSMImage,
     AddAdditionalImage,
     RemoveAdditionalImage,
-    Search
+    Search,
+    Destroy
 }

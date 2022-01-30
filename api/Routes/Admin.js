@@ -47,6 +47,7 @@ adminRouter.put("/product/sm-image/:id", ProductController.UpdateSMImage)
 adminRouter.put("/product/additional-image/:id", ProductController.AddAdditionalImage)
 adminRouter.delete("/product/additional-image/:id/:file", ProductController.RemoveAdditionalImage)
 adminRouter.post("/product/search", ProductController.Search)
+adminRouter.delete("/product/:id", ProductController.Destroy)
 
 //  --------- Customer Routes ------------ 
 adminRouter.get("/customer", CustomerController.Index)
@@ -55,6 +56,7 @@ adminRouter.get("/customer/:id", CustomerController.Show)
 adminRouter.put("/customer/:id", CustomerController.Update)
 adminRouter.post("/customer/search", CustomerController.Search)
 adminRouter.get("/customer/:id/orders", CustomerController.Orders)
+adminRouter.delete("/customer/:id", CustomerController.Destroy)
 
 //  --------- Order Routes ------------ 
 adminRouter.get("/order", OrderController.Index)

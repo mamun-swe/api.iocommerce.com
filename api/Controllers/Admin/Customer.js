@@ -116,7 +116,6 @@ const Show = async (req, res, next) => {
         }
 
         customer.deliveryAddress = _.last(customer.deliveryAddress)
-        customer.shippingArea = _.last(customer.shippingArea)
 
         res.status(200).json({
             status: true,
@@ -231,11 +230,37 @@ const Orders = async (req, res, next) => {
     }
 }
 
+// Delete specific item
+const Destroy = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        await CheckId(id)
+
+        const is_available = await Customer.findById(id)
+        if (!is_available) {
+            return res.status(404).json({
+                status: false,
+                message: "Customer not available."
+            })
+        }
+
+        await Customer.findByIdAndDelete(id)
+
+        res.status(200).json({
+            status: true,
+            message: "Successfully deleted."
+        })
+    } catch (error) {
+        if (error) next(error)
+    }
+}
+
 module.exports = {
     Index,
     Store,
     Show,
     Update,
     Search,
-    Orders
+    Orders,
+    Destroy
 }

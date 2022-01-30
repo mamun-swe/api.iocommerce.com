@@ -52,7 +52,7 @@ const UpdateAccount = async (req, res, next) => {
                 ).exec()
             } else {
                 // Update account
-                isUpdateAccount = await User.findOneAndUpdate(
+                isUpdateAccount = await Customer.findOneAndUpdate(
                     { _id: user },
                     { $set: { name, email: email, gender, maritalStatus, dob } },
                     { $multi: false }
